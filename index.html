@@ -1,121 +1,329 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>JustAims LLC • Your Success, Our Goal</title>
-  <!-- keep using your existing stylesheet -->
-  <link rel="stylesheet" href="style.css" />
-  <meta name="description" content="JustAims LLC — Professional solutions to help your business grow. Explore our services and see how we can work together." />
+  <title>JustAims LLC — Practical business solutions</title>
+  <meta name="description" content="JustAims LLC helps small and growing businesses with setup, bookkeeping, and process automation." />
+  <style>
+    :root{
+      --bg: #0b1220;
+      --bg-soft:#0f1830;
+      --card:#111a36;
+      --ink:#eaf2ff;
+      --muted:#a8b3c7;
+      --brand:#4cc3ff;
+      --accent:#6efacc;
+      --ring: rgba(76,195,255,.45);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+    }
+
+    /* Reset-ish */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    :focus-visible{outline:2px solid var(--ring);outline-offset:2px}
+
+    body{
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 800px at 110% -10%, #1b2a56 0%, transparent 60%),
+        radial-gradient(900px 700px at -10% -20%, #12234b 0%, transparent 60%),
+        linear-gradient(180deg, #0a1326 0%, #060b15 100%);
+      min-height:100dvh;
+      font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      letter-spacing:.2px;
+    }
+
+    .container{width:min(1100px, 92%); margin-inline:auto}
+
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:20;
+      backdrop-filter:saturate(180%) blur(10px);
+      background:linear-gradient(180deg, rgba(8,14,28,.75), rgba(8,14,28,.35));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:16px;padding:14px 0;
+    }
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700}
+    .brand .logo{
+      width:36px;height:36px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--brand),#7c8cff);
+      border-radius:12px;box-shadow:0 8px 22px rgba(76,195,255,.35);
+      font-weight:900;color:#09122a;letter-spacing:.5px
+    }
+    .menu{display:flex;gap:22px;align-items:center}
+    .menu a{
+      color:var(--muted);font-weight:600;
+      padding:8px 10px;border-radius:10px;transition:.2s ease;
+    }
+    .menu a:hover{color:var(--ink);background:rgba(255,255,255,.06)}
+    .cta{
+      padding:10px 14px;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent),#9ef7e4);
+      color:#06221b;font-weight:800;box-shadow:0 10px 20px rgba(110,250,204,.25)
+    }
+
+    /* Mobile menu */
+    .hamburger{display:none;cursor:pointer}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--ink);margin:5px 0;border-radius:2px}
+
+    /* Hero */
+    .hero{
+      padding: clamp(56px, 8vw, 96px) 0 56px;
+      position:relative;isolation:isolate;
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center;
+    }
+    .eyebrow{color:var(--accent);font-weight:800;letter-spacing:.3px}
+    h1{
+      margin:10px 0 16px;font-size:clamp(28px, 4.5vw, 48px);line-height:1.1;
+      background:linear-gradient(180deg,#fff,#cfe1ff 70%);-webkit-background-clip:text;background-clip:text;color:transparent
+    }
+    .lead{color:var(--muted);font-size:clamp(16px, 1.4vw, 18px)}
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius); padding:22px; box-shadow:var(--shadow);
+    }
+    .hero-points{display:grid;gap:10px;margin-top:14px;color:var(--muted)}
+    .hero-points li{display:flex;gap:10px;align-items:flex-start}
+    .check{
+      width:22px;height:22px;border-radius:8px;display:grid;place-items:center;flex:0 0 22px;
+      background:linear-gradient(135deg,var(--accent),#c1ffe7);color:#052016;font-weight:900
+    }
+
+    section{padding: clamp(48px, 8vw, 80px) 0}
+    .section-title{font-size:clamp(22px, 3vw, 28px);margin:0 0 14px}
+    .muted{color:var(--muted)}
+
+    /* Cards */
+    .cards{
+      display:grid;gap:18px;grid-template-columns:repeat(3, 1fr);margin-top:18px
+    }
+    .card{
+      background:var(--card); border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;padding:20px;box-shadow:var(--shadow)
+    }
+    .card h3{margin:0 0 6px}
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:6px 10px;border-radius:999px;
+      background:rgba(76,195,255,.15);color:var(--brand);font-weight:700;font-size:13px
+    }
+
+    /* Contact */
+    .contact-grid{
+      display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:20px
+    }
+    form{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;padding:18px;box-shadow:var(--shadow)
+    }
+    label{font-weight:600;margin:10px 0 6px;display:block}
+    input,textarea{
+      width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);
+      background:#0c1530;color:var(--ink)
+    }
+    textarea{min-height:120px;resize:vertical}
+    .actions{display:flex;gap:10px;align-items:center;margin-top:12px}
+    .btn{
+      border:0;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,var(--brand),#7c8cff);
+      color:#071029;box-shadow:0 10px 20px rgba(76,195,255,.25)
+    }
+    .btn-ghost{
+      background:transparent;border:1px solid rgba(255,255,255,.2);color:var(--ink)
+    }
+
+    /* Footer */
+    footer{
+      border-top:1px solid rgba(255,255,255,.08);
+      padding:26px 0;color:var(--muted);font-size:14px
+    }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero-grid{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      .menu{display:none}
+      .hamburger{display:block}
+      .menu.open{display:flex;flex-direction:column;position:absolute;inset:60px 16px auto 16px; background:#0c1530;border:1px solid rgba(255,255,255,.12);padding:12px;border-radius:12px}
+    }
+  </style>
 </head>
 <body>
-  <!-- Header / Nav -->
-  <header id="home">
-    <h1>Welcome to JustAims LLC</h1>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">JA</div>
+        <div>
+          <div style="font-weight:800">JustAims LLC</div>
+          <div class="muted" style="font-size:12px">Practical business solutions</div>
+        </div>
+      </div>
+
+      <nav id="menu" class="menu">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <a class="cta" href="mailto:info@justaimsllc.com">Get in touch</a>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </header>
 
-  <main class="container">
-    <!-- Hero -->
-    <section id="hero" aria-labelledby="hero-title">
-      <h2 id="hero-title">Your Success, Our Goal</h2>
-      <p>
-        We provide professional solutions to help your business grow.
-        Explore our services and see how we can work together.
+  <main id="home" class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Make progress, not busywork</div>
+        <h1>Set up. Stay compliant. Work smarter.</h1>
+        <p class="lead">
+          We help small and growing businesses with LLC setup, clean books, and simple automations—so you can focus on your customers.
+        </p>
+        <div style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap">
+          <a class="btn btn-primary" href="#contact">Book a call</a>
+          <a class="btn btn-ghost" href="#services">Explore services</a>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <strong>Why JustAims?</strong>
+        <ul class="hero-points">
+          <li><span class="check">✓</span> Practical, action-oriented guidance</li>
+          <li><span class="check">✓</span> Clear pricing & simple engagement</li>
+          <li><span class="check">✓</span> On-time delivery & honest communication</li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">About</h2>
+      <p class="muted" style="max-width:72ch">
+        JustAims LLC supports small and growing businesses with reliable, straightforward services—so you can focus on your customers while we help with the rest.
       </p>
-    </section>
+    </div>
+  </section>
 
-    <!-- About -->
-    <section id="about" aria-labelledby="about-title">
-      <h2 id="about-title">About</h2>
-      <p>
-        JustAims LLC supports small and growing businesses with reliable,
-        straightforward services—so you can focus on your customers while we
-        help with the rest.
-      </p>
-      <ul>
-        <li>Practical, action-oriented guidance</li>
-        <li>Clear pricing and simple engagement</li>
-        <li>On-time delivery and honest communication</li>
-      </ul>
-    </section>
+  <section id="services">
+    <div class="container">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <h2 class="section-title" style="margin:0">Services</h2>
+        <span class="badge" title="We keep it simple">• Clear scope • No surprises</span>
+      </div>
 
-    <!-- Services -->
-    <section id="services" aria-labelledby="services-title">
-      <h2 id="services-title">Services</h2>
-
-      <!-- Simple “cards” layout (your CSS already supports card styles) -->
       <div class="cards">
         <article class="card">
           <h3>Business Setup & Compliance</h3>
-          <p>LLC setup, EIN, registrations, and basic compliance so you start right.</p>
+          <p class="muted">LLC setup, EIN, registrations, and basic compliance so you start right.</p>
+          <ul class="muted" style="margin:10px 0 0 18px">
+            <li>State filings & EIN</li>
+            <li>Operating basics & templates</li>
+            <li>Annual reminders</li>
+          </ul>
         </article>
 
         <article class="card">
           <h3>Bookkeeping & Payroll</h3>
-          <p>Accurate books, on-time payroll, and clean monthly reports.</p>
+          <p class="muted">Accurate books, on-time payroll, and clean monthly reports.</p>
+          <ul class="muted" style="margin:10px 0 0 18px">
+            <li>Monthly categorization</li>
+            <li>Bank & card reconciliations</li>
+            <li>Simple performance views</li>
+          </ul>
         </article>
 
         <article class="card">
           <h3>Process & Automation</h3>
-          <p>Streamline repetitive tasks with simple, cost-effective automations.</p>
+          <p class="muted">Streamline repetitive tasks with quick, cost-effective automations.</p>
+          <ul class="muted" style="margin:10px 0 0 18px">
+            <li>Lead capture → sheet/CRM</li>
+            <li>Auto invoices & follow-ups</li>
+            <li>File & data hygiene</li>
+          </ul>
         </article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Contact -->
-    <section id="contact" aria-labelledby="contact-title">
-      <h2 id="contact-title">Contact</h2>
-      <p>
-        Email us at
-        <a href="mailto:info@justaimsllc.com">info@justaimsllc.com</a>
-        or send a quick note below:
-      </p>
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Contact</h2>
+      <p class="muted">Email us at <a href="mailto:info@justaimsllc.com" style="text-decoration:underline">info@justaimsllc.com</a> or send a quick note:</p>
+      <div class="contact-grid">
+        <form action="mailto:info@justaimsllc.com" method="post" enctype="text/plain">
+          <label for="name">Name</label>
+          <input id="name" name="name" placeholder="Your name" required />
 
-      <!-- Basic form (no backend). Replace action with Formspree or your API if you’d like it to submit. -->
-      <form class="contact-card" action="mailto:info@justaimsllc.com" method="post" enctype="text/plain">
-        <label>
-          Name
-          <input type="text" name="name" placeholder="Your name" required />
-        </label>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required />
 
-        <label>
-          Email
-          <input type="email" name="email" placeholder="you@example.com" required />
-        </label>
+          <label for="msg">Message</label>
+          <textarea id="msg" name="message" placeholder="How can we help?" required></textarea>
 
-        <label>
-          Message
-          <textarea name="message" rows="5" placeholder="How can we help?" required></textarea>
-        </label>
+          <div class="actions">
+            <button class="btn btn-primary" type="submit">Send</button>
+            <a class="btn btn-ghost" href="mailto:info@justaimsllc.com?subject=Inquiry%20from%20JustAims%20LLC">Open email app</a>
+          </div>
+        </form>
 
-        <button class="btn btn-primary" type="submit">Send</button>
-      </form>
-    </section>
-  </main>
+        <div class="card" style="display:grid;gap:10px">
+          <h3 style="margin:0">What to expect</h3>
+          <p class="muted" style="margin:0">We’ll reply within one business day. If it’s a fit, we’ll propose a small, clearly-scoped first step with a fixed price.</p>
+          <hr style="border:0;border-top:1px solid rgba(255,255,255,.08);margin:6px 0">
+          <strong>Prefer a call?</strong>
+          <p class="muted" style="margin:0">Tell us your time zone and the best windows to reach you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <footer>
-    <p>© 2025 JustAims LLC. All rights reserved.</p>
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <div>© <span id="year"></span> JustAims LLC. All rights reserved.</div>
+      <div class="muted">Built with GitHub Pages</div>
+    </div>
   </footer>
 
-  <!-- Smooth-scroll for in-page links -->
   <script>
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', e => {
-        const id = link.getAttribute('href');
-        if (id && id.length > 1) {
+    // Smooth scroll for same-page links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){
           e.preventDefault();
-          const el = document.querySelector(id);
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+          history.replaceState(null,'','#'+id);
         }
-      });
+      })
     });
+
+    // Mobile menu toggle
+    const burger = document.getElementById('hamburger');
+    const menu = document.getElementById('menu');
+    burger?.addEventListener('click', ()=> menu.classList.toggle('open'));
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
